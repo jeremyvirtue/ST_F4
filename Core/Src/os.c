@@ -1,13 +1,21 @@
 #include "os.h"
 #include "key.h"
 #include "tim.h"
+#include "usart.h"
+#include "lcd.h"
+#include "ctrl.h"
+#include "mymalloc.h"
 
 MyDelay   taskDelay[MAXTASK];
 
 /*------хннЯ0------*/
 static void Task0(void)
 {		
-//		HAL_GPIO_TogglePin(  GPIOF, GPIO_PIN_10);
+	
+	
+ 			
+
+
 } 
 
 

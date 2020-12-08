@@ -19,13 +19,24 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "sdio.h"
+#include "spi.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
+#include "fsmc.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "key.h"
 #include "os.h"
+#include "lcd.h"
+#include "touch.h"
+#include "mydelay.h"
+#include "sram.h"
+#include "ctrl.h"
+#include "mymalloc.h"
+#include "w25qxx.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,6 +68,20 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+#ifdef __GNUC__
+/* With GCC, small printf (option LD Linker->Libraries->Small printf
+   set to 'Yes') calls __io_putchar() */
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif /* __GNUC__ */ 
+ 
+PUTCHAR_PROTOTYPE
+{
+    HAL_UART_Transmit(&huart1 , (uint8_t *)&ch, 1, 0xFFFF);
+    return ch;
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -66,7 +91,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+ 
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -89,27 +114,51 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   MX_TIM14_Init();
+  MX_USART1_UART_Init();
+  MX_FSMC_Init();
+  MX_SPI1_Init();
+  MX_TIM3_Init();
+  MX_SDIO_SD_Init();
   /* USER CODE BEGIN 2 */
-	HAL_TIM_Base_Start_IT(&htim2); 
-	HAL_TIM_PWM_Start(&htim14, TIM_CHANNEL_1); 
-	HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
+	HAL_TIM_Base_Start_IT(&htim2); //系统调度定时器
+ 
+	HAL_TIM_PWM_Start(&htim14, TIM_CHANNEL_1); //pwm定时器 
+	LCD_Init();
+	W25QXX_Init();
 	OSTaskInit(); 
+ 
 //    u16 pwm_time = 0;
 //    u8 pwm_flag = 0; 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	my_mem_init(SRAMIN);		//初始化内部内存池
+	my_mem_init(SRAMEX);		//初始化外部内存池
+	my_mem_init(SRAMCCM);		//初始化CCM内存池
+	
+		POINT_COLOR=RED;	  
+	LCD_ShowString(30,40,210,24,24,"super mario");	
+	LCD_ShowString(30,70,200,16,16,"AMD yse");
+	LCD_ShowString(30,90,200,16,16,"JeremyLin");      					 
+	LCD_ShowString(30,130,200,12,12,"2020/12/21"); 
+	  
+	POINT_COLOR=BLUE;//设置字体为蓝色 
+	while(W25QXX_ReadID()!=W25Q128)								//检测不到W25Q128
+	{
+		LCD_ShowString(30,150,200,16,16,"W25Q128 Check Failed!");
+		HAL_Delay(500);
+		LCD_ShowString(30,150,200,16,16,"Please Check!      ");
+		HAL_Delay(500);
+		LED=!LED;		//DS0闪烁
+	}
+	LCD_ShowString(30,150,200,16,16,"W25Q128 Ready!"); 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		
-		OSTaskScan(); 
-
- 
-		
+			OSTaskScan();    
  
   }
   /* USER CODE END 3 */
@@ -138,7 +187,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 8;
   RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 8;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();

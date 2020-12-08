@@ -1,4 +1,5 @@
 #include "key.h"
+#include "lcd.h"
  
 KeyData   keys;  
 
@@ -6,59 +7,7 @@ static void KeyPress(void);
 static void KeyRelease(void);
 static void KeyContinued(void);
 
-void KeyMenu(void){
-    switch(keys.key_num){ 
-         
-        case KEY_WK_UP_PRESS:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_RESET);
-        break;
-        case KEY_WK_UP_RELEASE:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
-        break;
-        case KEY_WK_UP_CONTINUED:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
-        break;
-				
-				case KEY_ID0_PRESS:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_RESET);
-        break;
-        case KEY_ID0_RELEASE:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
-        break;
-        case KEY_ID0_CONTINUED:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
-        break;
-				
-				
-				case KEY_ID1_PRESS:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_RESET);
-        break;
-        case KEY_ID1_RELEASE:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
-        break;
-        case KEY_ID1_CONTINUED:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
-        break;
-				
-				case KEY_ID2_PRESS:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_RESET);
-        break;
-        case KEY_ID2_RELEASE:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
-        break;
-        case KEY_ID2_CONTINUED:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
-        break;
-        default:
 
-        break; 
-    }
-    if(keys.key_num){
-        keys.key_num = 0;
-    }
-
-
-}
 
 void KeyScan(void){
 	u8 i; 

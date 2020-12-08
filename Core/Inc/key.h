@@ -62,7 +62,7 @@ typedef struct
 
 extern KeyData   keys;  
 
-void KeyMenu(void);
+ 
 void KeyScan(void);
 
 
