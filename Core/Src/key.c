@@ -10,23 +10,23 @@ void KeyMenu(void){
     switch(keys.key_num){ 
          
         case KEY_WK_UP_PRESS:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_9,GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_RESET);
         break;
         case KEY_WK_UP_RELEASE:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_9,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
         break;
         case KEY_WK_UP_CONTINUED:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_9,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
         break;
 				
 				case KEY_ID0_PRESS:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_9,GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_RESET);
         break;
         case KEY_ID0_RELEASE:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_9,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
         break;
         case KEY_ID0_CONTINUED:
-						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_9,GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
         break;
 				
 				

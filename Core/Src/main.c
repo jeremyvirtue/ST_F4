@@ -88,11 +88,14 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM2_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
-	HAL_TIM_Base_Start_IT(&htim2);
-	HAL_GPIO_WritePin(GPIOF,GPIO_PIN_9,GPIO_PIN_SET);
+	HAL_TIM_Base_Start_IT(&htim2); 
+	HAL_TIM_PWM_Start(&htim14, TIM_CHANNEL_1); 
 	HAL_GPIO_WritePin(GPIOF,GPIO_PIN_10,GPIO_PIN_SET);
-	OSTaskInit();
+	OSTaskInit(); 
+//    u16 pwm_time = 0;
+//    u8 pwm_flag = 0; 
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,12 +105,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		OSTaskScan();
-//		KeyMenu();
-//		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9|GPIO_PIN_10, GPIO_PIN_RESET);
-//		HAL_Delay(500);
-//		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_9|GPIO_PIN_10, GPIO_PIN_SET);
-//		HAL_Delay(500);
+		
+		OSTaskScan(); 
+
+ 
+		
+ 
   }
   /* USER CODE END 3 */
 }

@@ -1,12 +1,13 @@
 #include "os.h"
 #include "key.h"
+#include "tim.h"
 
 MyDelay   taskDelay[MAXTASK];
 
 /*------任务0------*/
 static void Task0(void)
 {		
- 
+//		HAL_GPIO_TogglePin(  GPIOF, GPIO_PIN_10);
 } 
 
 
@@ -27,9 +28,9 @@ static void Task2(void)
 /*------任务1------*/
 static void Task3(void)
 {	  
-			KeyScan();
-			KeyMenu();
- 
+  	KeyScan();
+		KeyMenu();
+			
 } 
 
 void OSTaskInit(void)

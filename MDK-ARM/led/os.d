@@ -32,3 +32,4 @@ led\os.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 led\os.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 led\os.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 led\os.o: ../Core/Inc/key.h
+led\os.o: ../Core/Inc/tim.h
