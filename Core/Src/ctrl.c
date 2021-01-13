@@ -14,7 +14,7 @@ void KeyMenu(void){
 		FLASH_SIZE=16*1024*1024;
     switch(keys.key_num){ 
          
-        case KEY_WK_UP_PRESS:
+        case KEY_WK_UP_PRESS: 
 					LED = 0;   
 					LCD_Fill(0,170,239,319,WHITE);//Çå³ý°ëÆÁ    
 					LCD_ShowString(30,170,200,16,16,"Start Write W25Q128....");
